@@ -1,13 +1,20 @@
 public class Main {
 
-    public static void mergSort(int arr[], int si, int ei) {
+    public static void printArray(int arr[]) {
+        for(int i=0; i<arr.length; i++) {
+            System.out.print(arr[i] + " ");
+        }
+        System.out.println();
+    }
+
+    public static void mergeSort(int arr[], int si, int ei) {
         if(si >= ei) {
             return;
         }
-        //kaam
+
         int mid = si + (ei - si) / 2;
-        mergSort(arr, si, mid);
-        mergSort(arr, mid+1, ei);
+        mergeSort(arr, si, mid);
+        mergeSort(arr, mid + 1, ei);
         merge(arr, si, mid, ei);
     }
 
@@ -15,21 +22,21 @@ public class Main {
         int temp[] = new int[ei-si+1];
 
         int i = si;
-        int j = mid+1;
-        int k=0;
+        int j = mid + 1;
+        int k = 0;
 
         while(i <= mid && j <= ei) {
             if(arr[i] < arr[j]) {
                 temp[k] = arr[i];
                 i++;
-                k++;
-            } else {
+            }
+            else {
                 temp[k] = arr[j];
                 j++;
-                k++;
             }
+            k++;
         }
-        
+
         while(i <= mid) {
             temp[k++] = arr[i++];
         }
@@ -38,17 +45,15 @@ public class Main {
             temp[k++] = arr[j++];
         }
 
-        for(int a=0, b=si; a<temp.length; a++, b++) {
-            arr[b] = temp[a];
+        for(k=0, i=si; k<temp.length; k++, i++) {
+            arr[i] = temp[k];
         }
     }
 
     public static void main(String args[]) {
-        int arr[] = {3, 6, 8, 4, 2, 7};
-        mergSort(arr, 0, arr.length - 1);
+        int arr[] = {5, 8, 4, 3, 2, 1, 9, 6};
 
-        for(int i=0; i<arr.length; i++) {
-            System.out.print(arr[i] + " ");
-        }
+        mergeSort(arr, 0, arr.length - 1);
+        printArray(arr);
     }
 }
