@@ -1,54 +1,29 @@
 public class Main {
 
-    public static void mergSort(int arr[], int si, int ei) {
-        if(si >= ei) {
+    public static void backtrack(int arr[], int i, int val) {
+
+        if(i == arr.length) {
+            printArray(arr);
             return;
         }
-        //kaam
-        int mid = si + (ei - si) / 2;
-        mergSort(arr, si, mid);
-        mergSort(arr, mid+1, ei);
-        merge(arr, si, mid, ei);
+
+        arr[i] = val;
+        backtrack(arr, i + 1, val + 1);
+        arr[i] = arr[i] - 2;
     }
 
-    public static void merge(int arr[], int si, int mid, int ei) {
-        int temp[] = new int[ei-si+1];
-
-        int i = si;
-        int j = mid+1;
-        int k=0;
-
-        while(i <= mid && j <= ei) {
-            if(arr[i] < arr[j]) {
-                temp[k] = arr[i];
-                i++;
-                k++;
-            } else {
-                temp[k] = arr[j];
-                j++;
-                k++;
-            }
-        }
-        
-        while(i <= mid) {
-            temp[k++] = arr[i++];
-        }
-
-        while(j <= ei) {
-            temp[k++] = arr[j++];
-        }
-
-        for(int a=0, b=si; a<temp.length; a++, b++) {
-            arr[b] = temp[a];
-        }
-    }
-
-    public static void main(String args[]) {
-        int arr[] = {3, 6, 8, 4, 2, 7};
-        mergSort(arr, 0, arr.length - 1);
-
+    public static void printArray(int arr[]) {
         for(int i=0; i<arr.length; i++) {
             System.out.print(arr[i] + " ");
         }
+        System.out.println();
+    }
+
+    public static void main(String args[]) {
+        int arr[] = new int[5];
+
+        backtrack(arr, 0, 1);
+
+        printArray(arr);
     }
 }
